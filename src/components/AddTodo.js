@@ -34,7 +34,7 @@ export default function AddTodo() {
             </div>
             <h3> Todo Items</h3>
             <div> 
-                {todo.map(elem=><div text={text}>{elem}</div>)}
+                {todo.map(elem=><TodoItem text={elem}/>)}
             </div>
         </div>
     )
