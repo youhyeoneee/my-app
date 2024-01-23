@@ -1,25 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
+import HelloWorld from './components/HelloWorld';
+import CaptionImage from './components/CaptionImage';
+import BlinkCompnent from './components/BlinkComponent.js';
+import CountComponent from './components/CountComponent.js';
+import { useState } from 'react';
+import FocusInputButton from './components/RegisterInputButton.js';
+import ChangeColor from './components/ChangeColor.js';
+import AddTodo from './components/AddTodo.js';
+
 
 function App() {
+  const [visible, setVisible] = useState(false)
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AddTodo/>
     </div>
   );
 }
-
 export default App;
