@@ -7,7 +7,7 @@ import CountComponent from './components/CountComponent.js';
 import { useState } from 'react';
 import FocusInputButton from './components/RegisterInputButton.js';
 import ChangeColor from './components/ChangeColor.js';
-import AddTodo from './components/AddTodo.js';
+import TodoList from './components/TodoList.js';
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
   
   return (
     <div className="App">
-      <AddTodo/>
+      <TodoList/>
     </div>
   );
 }

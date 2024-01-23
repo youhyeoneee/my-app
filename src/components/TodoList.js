@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import TodoItem from "./TodoItem";
 
-export default function AddTodo() {
+export default function TodoList() {
 
     const [text, setText] = useState("")
     const [todo, setTodo] = useState([1, 2, 3, 4]);
