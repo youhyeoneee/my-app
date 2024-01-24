@@ -1,6 +1,7 @@
 .App {
   text-align: center;
-  background-color: blue;
+  min-height: 100vh;
+  background-color: #0046ff;
 }
 
 .App-logo {
@@ -38,10 +39,8 @@
   }
 }
 
-.todoItemContainer {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
+.todoItemContainer > div > input{
+  text-align: center;
 }
 
 .todoItemsContainer {

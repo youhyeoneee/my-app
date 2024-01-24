@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import TodoItem from "./TodoItem";
 import ColorButton from "./ColorButton";
-
+import InputGroup from 'react-bootstrap/InputGroup';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 export default function TodoList() {
     const [inputs, setInputs] = useState({
@@ -73,8 +75,10 @@ export default function TodoList() {
         <div class="todoListContainer">
             <h1>Todo App</h1>
             <div>
-                <input ref={inputRef} style={{backgroundColor: color}} type="text" placeholder="입력" value={text} onChange={onChange}/>
-                <button onClick={addTodo}>입력</button>
+            <InputGroup className="mb-3">
+                <Form.Control ref={inputRef} style={{backgroundColor: color}} type="text" placeholder="입력" value={text} onChange={onChange}/>
+                <Button variant="secondary" id="button-addon2" onClick={addTodo}>입력</Button>
+            </InputGroup>
             </div>
             <div class="colorContainer">
                 {colorList.map(elem=><ColorButton color={elem} changeColor={changeColor}/>)}

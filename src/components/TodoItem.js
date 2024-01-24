@@ -1,4 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
+import InputGroup from 'react-bootstrap/InputGroup';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 export default function TodoItem(props) {
     const [todo, setTodo] = useState({});
@@ -16,16 +19,12 @@ export default function TodoItem(props) {
         props.updateTodo(id, e.target.value);
     };
 
-    // useEffect(() => {
-    //     setTodo({
-    //         ...todo
-    //     })
-    // }, [props.todo])
-
     return (
         <div class="todoItemContainer">
-            <input value={text} onChange={onChange} style={{backgroundColor: color}}></input>
-            <button onClick={() => props.deleteTodo(id)}>삭제</button>
+            <InputGroup className="mb-3">
+                <Form.Control value={text} onChange={onChange} style={{backgroundColor: color}}></Form.Control>
+                <Button variant="danger" id="button-addon2" onClick={() => props.deleteTodo(id)}>삭제</Button>
+            </InputGroup>
         </div>
     )
 }
