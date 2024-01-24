@@ -1,23 +1,31 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 export default function TodoItem(props) {
-
-    const [text, setText] = useState('');
-    const [color, setColor] = useState(props.color);
-
-    const onChange = (e) => {
-        setText(e.target.value);
-        props.updateTodo(text, e.target.value);
-    };
+    const [todo, setTodo] = useState({});
+    const {id, text, color} = props.todo;
 
     useEffect(()=>{
-        setText(props.text)
-    }, [props.text])
+        setTodo(props.todo)
+    }, [])
+
+    const onChange = (e) => {
+        setTodo({
+            ...todo,
+            text: e.target.value
+        });
+        props.updateTodo(id, e.target.value);
+    };
+
+    // useEffect(() => {
+    //     setTodo({
+    //         ...todo
+    //     })
+    // }, [props.todo])
 
     return (
         <div class="todoItemContainer">
-            <input value={text} onChange={onChange} className={color}></input>
-            <button onClick={() => props.deleteTodo(text)}>삭제</button>
+            <input value={text} onChange={onChange} style={{backgroundColor: color}}></input>
+            <button onClick={() => props.deleteTodo(id)}>삭제</button>
         </div>
     )
 }

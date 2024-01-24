@@ -7,6 +7,6 @@ export default function ColorButton(prop) {
         prop.changeColor(prop.color);
     }
     return (
-        <button className={prop.color} onClick={onClick}/>
+        <button style={{backgroundColor: prop.color}} onClick={onClick}/>
     )
 }

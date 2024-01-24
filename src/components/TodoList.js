@@ -2,42 +2,68 @@ import React, { useEffect, useRef, useState } from "react";
 import TodoItem from "./TodoItem";
 import ColorButton from "./ColorButton";
 
-export default function TodoList() {
 
-    const [text, setText] = useState("")
-    const [todoList, setTodoList] = useState([]);
-    const [color, setColor] = useState("backgroundWhite");
-    const [colorList, setColorList] = useState(["backgroundAliceBlue", "backgroundYellow", "backgroundRed", "backgroundPink"]);
+export default function TodoList() {
+    const [inputs, setInputs] = useState({
+        text: '',
+        color: ''
+    });
+
+    const { text, color } = inputs;
+
+    const [colorList, setColorList] = useState(["aliceblue", "yellow", "red", "pink"]);
     const inputRef = useRef();
 
+    const nextId = useRef(3);
+    const [todoList, setTodoList] = useState([]); // TO DO LIST
 
+    const onChange = e => {
+        setInputs({
+            ...inputs,
+            text: e.target.value
+        });
+    };
+    
     const addTodo = () => {
-        setTodoList([...todoList, text]); // 추가
+        const newTodo = {
+            ...inputs,
+            id: nextId.current,
+        };
+
+        console.log(`추가 : ${inputs}`);
+        console.log(todoList);
+
+        setTodoList(todoList.concat(newTodo));
         focusInput(); // 입력란으로 초점
-        setText("") // 비우기
+        setInputs({
+            text: '',
+            color: ''
+        });
+        nextId.current += 1;
+
     }
     
     const focusInput = () => {
         inputRef.current.focus();
     };
 
-    function deleteTodo (todoValue) {
-        console.log(
-            todoList.filter(value => todoValue !== value)
-        )
-        setTodoList(todoList.filter(value => todoValue !== value));
-        // console.log(` ${todoValue} 삭제 => ${todoList}`);
+    function deleteTodo(id) {
+        console.log(` ${id} 삭제`);
+        setTodoList(todoList.filter((todo => todo.id !== id)));
+        console.log(todoList);
     };
 
-    function updateTodo(value, newValue) {
-        setTodoList(todoList.map(
-            todo => todo === value? newValue : todo
-        ));
-        console.log(` ${value} 수정 ${newValue}  => ${todoList}`);
+    function updateTodo(id, newValue) {
+        console.log(`${id} 수정`)
+        setTodoList(todoList.map(todo => (todo.id === id ? { ...todo, text: newValue } : todo)));
+        console.log(todoList);
     };
 
     function changeColor(newColor) {
-        setColor(newColor);
+        setInputs({
+            ...inputs,
+            color: newColor
+        });
     }
 
     useEffect(() => {
@@ -47,10 +73,7 @@ export default function TodoList() {
         <div class="todoListContainer">
             <h1>Todo App</h1>
             <div>
-                <input ref={inputRef} className={color} type="text" placeholder="입력" value={text} onChange={e => {
-                    setText(e.target.value);
-                    console.log(`text : ${text}`);
-                }}/>
+                <input ref={inputRef} style={{backgroundColor: color}} type="text" placeholder="입력" value={text} onChange={onChange}/>
                 <button onClick={addTodo}>입력</button>
             </div>
             <div class="colorContainer">
@@ -58,7 +81,8 @@ export default function TodoList() {
             </div>
             <h3> Todo Items</h3>
             <div class="todoItemsContainer">
-                {todoList.map(elem=><TodoItem text={elem} deleteTodo={deleteTodo} updateTodo={updateTodo} color={color}/>)}
+                {todoList.map(elem=><TodoItem todo={elem}
+                                deleteTodo={deleteTodo} updateTodo={updateTodo}/>)}
             </div>
         </div>
     )
