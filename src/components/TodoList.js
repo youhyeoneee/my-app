@@ -4,23 +4,27 @@ import TodoItem from "./TodoItem";
 export default function TodoList() {
 
     const [text, setText] = useState("")
-    const [todo, setTodo] = useState([1, 2, 3, 4]);
+    const [todoList, setTodoList] = useState([1, 2, 3, 4]);
     const inputRef = useRef();
 
     const addTodo = () => {
-        setTodo([...todo, text]); // 추가
+        setTodoList([...todoList, text]); // 추가
         focusInput(); // 입력란으로 초점
         setText("") // 비우기
     }
-
+    
     const focusInput = () => {
         inputRef.current.focus();
     };
 
+    const deleteTodo = (todoValue) => {
+        setTodoList(todoList.filter(value => todoValue !== value));
+        console.log(` ${todoValue} 삭제 => ${todoList}`);
+    };
 
     useEffect(() => {
         console.log("TODO 추가!")
-    }, [todo])
+    }, [todoList])
 
     return (
         <div>
@@ -33,8 +37,9 @@ export default function TodoList() {
                 <button onClick={addTodo}>입력</button>
             </div>
             <h3> Todo Items</h3>
-            <div> 
-                {todo.map(elem=><TodoItem text={elem}/>)}
+            <div>
+                {todoList.map(elem=><div class="todoItem"><TodoItem text={elem}/>
+                        <button onClick={() => deleteTodo(elem)}>삭제</button></div>)}
             </div>
         </div>
     )
