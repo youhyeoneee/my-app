@@ -11,10 +11,6 @@ function App() {
   
   return (
     <div className="App">
-      <ThemeProvider>
-        <ThemeButton/>
-        <MyPage/>
-      </ThemeProvider>
       <TodoList/>
     </div>
   );

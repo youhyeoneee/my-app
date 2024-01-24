@@ -5,7 +5,7 @@ import ColorButton from "./ColorButton";
 export default function TodoList() {
 
     const [text, setText] = useState("")
-    const [todoList, setTodoList] = useState([1, 2, 3, 4]);
+    const [todoList, setTodoList] = useState([]);
     const [color, setColor] = useState("backgroundWhite");
     const [colorList, setColorList] = useState(["backgroundAliceBlue", "backgroundYellow", "backgroundRed", "backgroundPink"]);
     const inputRef = useRef();
@@ -36,8 +36,8 @@ export default function TodoList() {
         console.log(` ${value} 수정 ${newValue}  => ${todoList}`);
     };
 
-    function changeColor(color) {
-        setColor(color);
+    function changeColor(newColor) {
+        setColor(newColor);
     }
 
     useEffect(() => {
