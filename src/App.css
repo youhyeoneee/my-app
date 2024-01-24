@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: blue;
 }
 
 .App-logo {
@@ -37,8 +38,18 @@
   }
 }
 
-.todoItem {
+.todoItemContainer {
   display: flex;
   gap: 10px;
   justify-content: center;
+}
+
+.todoItemsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.todoListContainer {
+  padding: 40px;
 }

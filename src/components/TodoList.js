@@ -36,7 +36,7 @@ export default function TodoList() {
     }, [todoList])
 
     return (
-        <div>
+        <div class="todoListContainer">
             <h1>Todo App</h1>
             <div>
                 <input ref={inputRef} type="text" placeholder="입력" value={text} onChange={e => {
@@ -46,7 +46,7 @@ export default function TodoList() {
                 <button onClick={addTodo}>입력</button>
             </div>
             <h3> Todo Items</h3>
-            <div>
+            <div class="todoItemsContainer">
                 {todoList.map(elem=><TodoItem text={elem} deleteTodo={deleteTodo} updateTodo={updateTodo}/>)}
             </div>
         </div>
