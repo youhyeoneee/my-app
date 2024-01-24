@@ -58,7 +58,7 @@ export default function TodoList() {
             </div>
             <h3> Todo Items</h3>
             <div class="todoItemsContainer">
-                {todoList.map(elem=><TodoItem text={elem} deleteTodo={deleteTodo} updateTodo={updateTodo}/>)}
+                {todoList.map(elem=><TodoItem text={elem} deleteTodo={deleteTodo} updateTodo={updateTodo} color={color}/>)}
             </div>
         </div>
     )
