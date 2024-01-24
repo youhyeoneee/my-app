@@ -13,10 +13,10 @@ export default function TodoList() {
 
     const { text, color } = inputs;
 
-    const [colorList, setColorList] = useState(["aliceblue", "yellow", "red", "pink"]);
+    const [colorList, setColorList] = useState(["white", "yellow", "red", "pink"]);
     const inputRef = useRef();
 
-    const nextId = useRef(3);
+    const nextId = useRef(1);
     const [todoList, setTodoList] = useState([]); // TO DO LIST
 
     const onChange = e => {
