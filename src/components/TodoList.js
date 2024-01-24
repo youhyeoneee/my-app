@@ -6,8 +6,10 @@ export default function TodoList() {
 
     const [text, setText] = useState("")
     const [todoList, setTodoList] = useState([1, 2, 3, 4]);
+    const [color, setColor] = useState("backgroundWhite");
     const [colorList, setColorList] = useState(["backgroundAliceBlue", "backgroundYellow", "backgroundRed", "backgroundPink"]);
     const inputRef = useRef();
+
 
     const addTodo = () => {
         setTodoList([...todoList, text]); // 추가
@@ -34,6 +36,10 @@ export default function TodoList() {
         console.log(` ${value} 수정 ${newValue}  => ${todoList}`);
     };
 
+    function changeColor(color) {
+        setColor(color);
+    }
+
     useEffect(() => {
     }, [todoList])
 
@@ -41,14 +47,14 @@ export default function TodoList() {
         <div class="todoListContainer">
             <h1>Todo App</h1>
             <div>
-                <input ref={inputRef} type="text" placeholder="입력" value={text} onChange={e => {
+                <input ref={inputRef} className={color} type="text" placeholder="입력" value={text} onChange={e => {
                     setText(e.target.value);
                     console.log(`text : ${text}`);
                 }}/>
                 <button onClick={addTodo}>입력</button>
             </div>
             <div class="colorContainer">
-                {colorList.map(elem=><ColorButton color={elem}/>)}
+                {colorList.map(elem=><ColorButton color={elem} changeColor={changeColor}/>)}
             </div>
             <h3> Todo Items</h3>
             <div class="todoItemsContainer">
