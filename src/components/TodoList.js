@@ -17,13 +17,22 @@ export default function TodoList() {
         inputRef.current.focus();
     };
 
-    const deleteTodo = (todoValue) => {
+    function deleteTodo (todoValue) {
+        console.log(
+            todoList.filter(value => todoValue !== value)
+        )
         setTodoList(todoList.filter(value => todoValue !== value));
-        console.log(` ${todoValue} 삭제 => ${todoList}`);
+        // console.log(` ${todoValue} 삭제 => ${todoList}`);
+    };
+
+    function updateTodo(value, newValue) {
+        setTodoList(todoList.map(
+            todo => todo === value? newValue : todo
+        ));
+        console.log(` ${value} 수정 ${newValue}  => ${todoList}`);
     };
 
     useEffect(() => {
-        console.log("TODO 추가!")
     }, [todoList])
 
     return (
@@ -38,8 +47,7 @@ export default function TodoList() {
             </div>
             <h3> Todo Items</h3>
             <div>
-                {todoList.map(elem=><div class="todoItem"><TodoItem text={elem}/>
-                        <button onClick={() => deleteTodo(elem)}>삭제</button></div>)}
+                {todoList.map(elem=><TodoItem text={elem} deleteTodo={deleteTodo} updateTodo={updateTodo}/>)}
             </div>
         </div>
     )
