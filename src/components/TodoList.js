@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import TodoItem from "./TodoItem";
+import ColorButton from "./ColorButton";
 
 export default function TodoList() {
 
     const [text, setText] = useState("")
     const [todoList, setTodoList] = useState([1, 2, 3, 4]);
-    const [colorList, setColorList] = useState(["alice-blue", "red", "yellow", "pink"]);
+    const [colorList, setColorList] = useState(["backgroundAliceBlue", "backgroundYellow", "backgroundRed", "backgroundPink"]);
     const inputRef = useRef();
 
     const addTodo = () => {
@@ -47,10 +48,7 @@ export default function TodoList() {
                 <button onClick={addTodo}>입력</button>
             </div>
             <div class="colorContainer">
-                <button class="colorBtn backgroundAliceBlue"/>
-                <button class="colorBtn backgroundYellow"/>
-                <button class="colorBtn backgroundRed"/>
-                <button class="colorBtn backgroundPink"/>
+                {colorList.map(elem=><ColorButton color={elem}/>)}
             </div>
             <h3> Todo Items</h3>
             <div class="todoItemsContainer">

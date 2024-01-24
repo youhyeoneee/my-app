@@ -64,7 +64,7 @@
   gap: 10px;
 }
 
-.colorBtn {
+.colorContainer button {
   height: 15px;
   border-radius: 50%;
 }
