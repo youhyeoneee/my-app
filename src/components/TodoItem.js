@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 export default function TodoItem(props) {
 
     const [text, setText] = useState('');
+    const [color, setColor] = useState(props.color);
 
     const onChange = (e) => {
         setText(e.target.value);
@@ -15,7 +16,7 @@ export default function TodoItem(props) {
 
     return (
         <div class="todoItemContainer">
-            <input value={text} onChange={onChange} className={props.color}></input>
+            <input value={text} onChange={onChange} className={color}></input>
             <button onClick={() => props.deleteTodo(text)}>삭제</button>
         </div>
     )
