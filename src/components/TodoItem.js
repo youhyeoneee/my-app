@@ -14,7 +14,7 @@ export default function TodoItem(props) {
     }, [props.text])
 
     return (
-        <div class="todoItem">
+        <div class="todoItemContainer">
             <input value={text} onChange={onChange}></input>
             <button onClick={() => props.deleteTodo(text)}>삭제</button>
         </div>

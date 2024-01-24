@@ -51,5 +51,36 @@
 }
 
 .todoListContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   padding: 40px;
+}
+
+.colorContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.colorBtn {
+  height: 15px;
+  border-radius: 50%;
+}
+
+.backgroundAliceBlue {
+  background-color: aliceblue;
+}
+
+.backgroundYellow {
+  background-color: yellow;
+}
+
+.backgroundRed {
+  background-color: red;
+}
+
+.backgroundPink {
+  background-color: pink;
 }

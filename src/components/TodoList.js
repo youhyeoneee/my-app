@@ -5,6 +5,7 @@ export default function TodoList() {
 
     const [text, setText] = useState("")
     const [todoList, setTodoList] = useState([1, 2, 3, 4]);
+    const [colorList, setColorList] = useState(["alice-blue", "red", "yellow", "pink"]);
     const inputRef = useRef();
 
     const addTodo = () => {
@@ -44,6 +45,12 @@ export default function TodoList() {
                     console.log(`text : ${text}`);
                 }}/>
                 <button onClick={addTodo}>입력</button>
+            </div>
+            <div class="colorContainer">
+                <button class="colorBtn backgroundAliceBlue"/>
+                <button class="colorBtn backgroundYellow"/>
+                <button class="colorBtn backgroundRed"/>
+                <button class="colorBtn backgroundPink"/>
             </div>
             <h3> Todo Items</h3>
             <div class="todoItemsContainer">
