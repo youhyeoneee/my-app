@@ -5,13 +5,13 @@ import TodoList from "./components/todo/TodoList.js";
 import Board from "./components/board/Board.js";
 
 function App() {
-  const [visible, setVisible] = useState(false);
+    const [visible, setVisible] = useState(false);
 
-  return (
-    <div className="App">
-      <TodoList />
-      {/* <Board /> */}
-    </div>
-  );
+    return (
+        // <div className="App">
+        //     <TodoList />
+        // </div>
+        <Board />
+    );
 }
 export default App;
