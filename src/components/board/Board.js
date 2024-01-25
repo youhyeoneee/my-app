@@ -1,10 +1,24 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import Post from "./Post";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import { Button } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 
 export default function Board() {
+    const [inputs, setInputs] = useState({
+        userId: "",
+        title: "",
+        body: "",
+    });
+
+    const { userId, title, body } = inputs;
+
+    const nextId = useRef(101);
+
     const [posts, setPosts] = useState([]);
+    const [writeActive, setWriteActive] = useState(false);
     const url = "https://jsonplaceholder.typicode.com/posts";
 
     const getBoardLists = () => {
@@ -16,7 +30,7 @@ export default function Board() {
     };
 
     const deletePost = (id) => {
-        fetch(`${url}/${id} 삭제`, {
+        fetch(`${url}/${id}`, {
             method: "DELETE",
         }).then(() => {
             getBoardLists();
@@ -24,11 +38,40 @@ export default function Board() {
     };
 
     const updatePost = (id) => {
-        fetch(`${url}/${id} 삭제`, {
+        fetch(`${url}/${id}`, {
             method: "PATCH",
         }).then(() => {
             getBoardLists();
         });
+    };
+
+    const writePost = (id) => {
+        fetch(`${url}/${id}`, {
+            method: "PUT",
+        }).then(() => {
+            getBoardLists();
+        });
+    };
+
+    const writeToggle = () => {
+        setWriteActive(!writeActive);
+
+        if (writeActive !== false) {
+            console.log("저장");
+            const newPost = {
+                ...inputs,
+                id: nextId.current,
+            };
+            setPosts((prev) => prev.concat(newPost));
+            console.log("작성 시도 : ", newPost.id);
+            writePost(newPost.id);
+            setInputs({
+                userId: "",
+                title: "",
+                body: "",
+            });
+            nextId.current += 1;
+        }
     };
 
     useEffect(() => {
@@ -38,8 +81,88 @@ export default function Board() {
     useEffect(() => {}, [posts]);
 
     return (
-        <div>
+        <div style={{ padding: "20px" }}>
             <h1 style={{ textAlign: "center", padding: "20px" }}>Boards</h1>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "center",
+                    paddingRight: "20px",
+                }}
+            >
+                <Button
+                    style={{
+                        paddingRight: "10px",
+                    }}
+                    onClick={() => writeToggle()}
+                >
+                    {writeActive === false ? "글 작성" : "저장"}
+                </Button>
+            </div>
+
+            {writeActive === true ? (
+                <div style={{ padding: "20px" }}>
+                    <div
+                        style={{
+                            display: "flex",
+                            gap: "20px",
+                            alignItems: "center",
+                        }}
+                    >
+                        <InputGroup className="mb-3">
+                            <InputGroup.Text id="basic-addon3">
+                                user
+                            </InputGroup.Text>
+                            <Form.Control
+                                id="basic-url"
+                                aria-describedby="basic-addon3"
+                                onChange={(e) => {
+                                    console.log("user 수정");
+                                    console.log(inputs);
+                                    setInputs({
+                                        ...inputs,
+                                        userId: e.target.value,
+                                    });
+                                }}
+                            />
+                        </InputGroup>
+
+                        <InputGroup className="mb-3">
+                            <InputGroup.Text>제목</InputGroup.Text>
+                            <Form.Control
+                                aria-label="Amount (to the nearest dollar)"
+                                onChange={(e) => {
+                                    console.log("title 수정");
+                                    console.log(inputs);
+                                    setInputs({
+                                        ...inputs,
+                                        title: e.target.value,
+                                    });
+                                }}
+                            />
+                        </InputGroup>
+                    </div>
+                    <div>
+                        <InputGroup>
+                            <InputGroup.Text>내용</InputGroup.Text>
+                            <Form.Control
+                                as="textarea"
+                                aria-label="With textarea"
+                                onChange={(e) => {
+                                    console.log("body 수정");
+                                    console.log(inputs);
+                                    setInputs({
+                                        ...inputs,
+                                        body: e.target.value,
+                                    });
+                                }}
+                            />
+                        </InputGroup>
+                    </div>
+                </div>
+            ) : null}
+
             <div style={{ padding: "20px" }}>
                 <Row xs={2} md={4} className="g-4">
                     {posts.map((elem, idx) => (
