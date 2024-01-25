@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Post from "./Post";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -15,9 +15,19 @@ export default function Board() {
             });
     };
 
+    const deletePost = (id) => {
+        fetch(`${url}/${id} 삭제`, {
+            method: "DELETE",
+        }).then(() => {
+            getBoardLists();
+        });
+    };
+
     useEffect(() => {
         getBoardLists();
     }, []);
+
+    useEffect(() => {}, [posts]);
 
     return (
         <div>
@@ -26,7 +36,7 @@ export default function Board() {
                 <Row xs={2} md={4} className="g-4">
                     {posts.map((elem, idx) => (
                         <Col key={idx}>
-                            <Post postItem={elem} />
+                            <Post postItem={elem} onDelete={deletePost} />
                         </Col>
                     ))}
                 </Row>
