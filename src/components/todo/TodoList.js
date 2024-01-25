@@ -31,7 +31,7 @@ export default function TodoList() {
         });
     };
 
-    const addTodo = () => {
+    const addTodo = useCallback(() => {
         const newTodo = {
             ...inputs,
             id: nextId.current,
@@ -40,41 +40,43 @@ export default function TodoList() {
         console.log(`추가 : ${inputs}`);
         console.log(todoList);
 
-        setTodoList(todoList.concat(newTodo));
+        setTodoList((prev) => prev.concat(newTodo));
         focusInput(); // 입력란으로 초점
         setInputs({
             text: "",
             color: "",
         });
         nextId.current += 1;
-    };
+    });
 
     const focusInput = () => {
         inputRef.current.focus();
     };
 
-    function deleteTodo(id) {
-        console.log(` ${id} 삭제`);
-        setTodoList(todoList.filter((todo) => todo.id !== id));
-        console.log(todoList);
-    }
+    const deleteTodo = useCallback((id) => {
+        setTodoList((prev) => {
+            return prev.filter((todo) => {
+                return todo.id !== id;
+            });
+        });
+    });
 
-    function updateTodo(id, newValue) {
+    const updateTodo = useCallback((id, newValue) => {
         console.log(`${id} 수정`);
-        setTodoList(
-            todoList.map((todo) =>
+        setTodoList((prev) => {
+            prev.map((todo) =>
                 todo.id === id ? { ...todo, text: newValue } : todo
-            )
-        );
+            );
+        });
         console.log(todoList);
-    }
+    });
 
-    function changeColor(newColor) {
+    const changeColor = useCallback((newColor) => {
         setInputs({
             ...inputs,
             color: newColor,
         });
-    }
+    });
 
     useEffect(() => {}, [todoList]);
 
