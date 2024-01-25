@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Post from "./Post";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 export default function Board() {
     const [posts, setPosts] = useState([]);
@@ -19,11 +21,15 @@ export default function Board() {
 
     return (
         <div>
-            <h1>Boards</h1>
-            <div>
-                {posts.map((elem) => (
-                    <Post postItem={elem} />
-                ))}
+            <h1 style={{ textAlign: "center", padding: "20px" }}>Boards</h1>
+            <div style={{ padding: "20px" }}>
+                <Row xs={2} md={4} className="g-4">
+                    {posts.map((elem, idx) => (
+                        <Col key={idx}>
+                            <Post postItem={elem} />
+                        </Col>
+                    ))}
+                </Row>
             </div>
         </div>
     );
