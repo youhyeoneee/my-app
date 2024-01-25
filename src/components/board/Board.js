@@ -23,6 +23,14 @@ export default function Board() {
         });
     };
 
+    const updatePost = (id) => {
+        fetch(`${url}/${id} 삭제`, {
+            method: "PATCH",
+        }).then(() => {
+            getBoardLists();
+        });
+    };
+
     useEffect(() => {
         getBoardLists();
     }, []);
@@ -36,7 +44,11 @@ export default function Board() {
                 <Row xs={2} md={4} className="g-4">
                     {posts.map((elem, idx) => (
                         <Col key={idx}>
-                            <Post postItem={elem} onDelete={deletePost} />
+                            <Post
+                                postItem={elem}
+                                onDelete={deletePost}
+                                onUpdate={updatePost}
+                            />
                         </Col>
                     ))}
                 </Row>
