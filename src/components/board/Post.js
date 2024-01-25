@@ -22,8 +22,8 @@ export default function Post({ postItem, onDelete, onUpdate }) {
 
         // 수정 끝나면 업데이트
         if (updateActive !== false) {
-            console.log("수정", body);
-            onUpdate(id);
+            console.log("수정", post);
+            onUpdate(id, post);
         }
     };
 

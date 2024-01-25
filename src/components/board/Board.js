@@ -20,6 +20,9 @@ export default function Board() {
     const [posts, setPosts] = useState([]);
     const [writeActive, setWriteActive] = useState(false);
     const url = "https://jsonplaceholder.typicode.com/posts";
+    const headers = {
+        "Content-type": "application/json; charset=UTF-8",
+    };
 
     const getBoardLists = () => {
         fetch(url)
@@ -37,20 +40,40 @@ export default function Board() {
         });
     };
 
-    const updatePost = (id) => {
+    const updatePost = (id, post) => {
         fetch(`${url}/${id}`, {
             method: "PATCH",
-        }).then(() => {
-            getBoardLists();
-        });
+            body: JSON.stringify({
+                userId: post.userId,
+                title: post.title,
+                body: post.body,
+            }),
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((json) => console.log(json))
+            .then(() => {
+                getBoardLists();
+            });
     };
 
-    const writePost = (id) => {
-        fetch(`${url}/${id}`, {
-            method: "PUT",
-        }).then(() => {
-            getBoardLists();
-        });
+    const writePost = () => {
+        console.log("작성 : ", JSON.stringify(inputs));
+        fetch(`${url}`, {
+            method: "POST",
+            body: JSON.stringify({
+                id: nextId,
+                userId: inputs.userId,
+                title: inputs.title,
+                body: inputs.body,
+            }),
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((json) => console.log(json))
+            .then(() => {
+                getBoardLists();
+            });
     };
 
     const writeToggle = () => {
@@ -63,7 +86,6 @@ export default function Board() {
                 id: nextId.current,
             };
             setPosts((prev) => prev.concat(newPost));
-            console.log("작성 시도 : ", newPost.id);
             writePost(newPost.id);
             setInputs({
                 userId: "",
