@@ -26,8 +26,21 @@ export default function Post({ postItem, onDelete, onUpdate }) {
             onUpdate(id, post);
         }
     };
+    const onChangeAuthor = (e) => {
+        setPost({
+            ...post,
+            author: e.target.value,
+        });
+    };
 
-    const onChange = (e) => {
+    const onChangeTitle = (e) => {
+        setPost({
+            ...post,
+            title: e.target.value,
+        });
+    };
+
+    const onChangeContent = (e) => {
         setPost({
             ...post,
             content: e.target.value,
@@ -41,22 +54,40 @@ export default function Post({ postItem, onDelete, onUpdate }) {
                 style={{ textAlign: "center" }}
             >
                 <Card.Header> id: {id}</Card.Header>
-                <Card.Title>{title}</Card.Title>
-
+                {updateActive === true ? (
+                    <Form.Control
+                        as="textarea"
+                        aria-label="With textarea"
+                        value={title}
+                        onChange={onChangeTitle}
+                    />
+                ) : (
+                    <Card.Title>{title}</Card.Title>
+                )}
                 {updateActive === true ? (
                     <Form.Control
                         as="textarea"
                         aria-label="With textarea"
                         value={content}
-                        onChange={onChange}
+                        onChange={onChangeContent}
                     />
                 ) : (
                     <Card.Text>{content}</Card.Text>
                 )}
 
-                <Card.Footer className="text-muted">
-                    user : {author}
-                </Card.Footer>
+                {updateActive === true ? (
+                    <Form.Control
+                        as="textarea"
+                        aria-label="With textarea"
+                        value={author}
+                        onChange={onChangeAuthor}
+                    />
+                ) : (
+                    <Card.Footer className="text-muted">
+                        user : {author}
+                    </Card.Footer>
+                )}
+
                 <Button variant="danger" onClick={() => onDelete(id)}>
                     삭제
                 </Button>

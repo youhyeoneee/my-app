@@ -41,11 +41,11 @@ export default function Board() {
 
     const updatePost = (id, post) => {
         fetch(`${url}/${id}`, {
-            method: "PATCH",
+            method: "PUT",
             body: JSON.stringify({
-                userId: post.userId,
+                author: post.author,
                 title: post.title,
-                body: post.body,
+                content: post.content,
             }),
             headers: headers,
         })
