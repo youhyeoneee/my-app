@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Post({ postItem, onDelete, onUpdate }) {
     const [post, setPost] = useState({});
     const [updateActive, setUpdateActive] = useState(false);
+    const url = "/board";
 
     useEffect(() => {
         setPost({
@@ -86,7 +88,7 @@ export default function Post({ postItem, onDelete, onUpdate }) {
                         user : {post.author}
                     </Card.Footer>
                 )}
-
+                <Link to={post.id}>게시글 보기</Link>
                 <Button variant="danger" onClick={() => onDelete(post.id)}>
                     삭제
                 </Button>
