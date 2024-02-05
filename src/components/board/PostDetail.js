@@ -28,11 +28,11 @@ export default function PostDetail() {
 
     useEffect(() => {
         getComments();
-    }, [comments]);
+    }, []);
 
     useEffect(() => {
         getPost();
-    }, [post]);
+    }, []);
 
     return (
         <div>
