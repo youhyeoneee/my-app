@@ -13,8 +13,6 @@ export default function Board() {
         content: "",
     });
 
-    const nextId = useRef(101);
-
     const [posts, setPosts] = useState([]);
     const [writeActive, setWriteActive] = useState(false);
     const url = "/board";
@@ -38,8 +36,8 @@ export default function Board() {
         });
     };
 
-    const updatePost = (id, post) => {
-        fetch(`${url}/${id}`, {
+    const updatePost = (post) => {
+        fetch(`${url}/${post.id}`, {
             method: "PUT",
             body: JSON.stringify({
                 author: post.author,
@@ -80,16 +78,14 @@ export default function Board() {
             console.log("저장");
             const newPost = {
                 ...inputs,
-                id: nextId.current,
             };
             setPosts((prev) => prev.concat(newPost));
-            writePost(newPost.id);
+            writePost();
             setInputs({
-                userId: "",
+                author: "",
                 title: "",
-                body: "",
+                content: "",
             });
-            nextId.current += 1;
         }
     };
 

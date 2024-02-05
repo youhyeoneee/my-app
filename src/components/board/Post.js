@@ -5,7 +5,6 @@ import Form from "react-bootstrap/Form";
 
 export default function Post({ postItem, onDelete, onUpdate }) {
     const [post, setPost] = useState({});
-    const { id, author, title, content } = post;
     const [updateActive, setUpdateActive] = useState(false);
 
     useEffect(() => {
@@ -15,7 +14,7 @@ export default function Post({ postItem, onDelete, onUpdate }) {
             title: postItem.title,
             content: postItem.content,
         });
-    }, []);
+    }, [postItem]);
 
     const updateToggle = () => {
         setUpdateActive(!updateActive);
@@ -23,7 +22,7 @@ export default function Post({ postItem, onDelete, onUpdate }) {
         // 수정 끝나면 업데이트
         if (updateActive !== false) {
             console.log("수정", post);
-            onUpdate(id, post);
+            onUpdate(post);
         }
     };
     const onChangeAuthor = (e) => {
@@ -53,42 +52,42 @@ export default function Post({ postItem, onDelete, onUpdate }) {
                 className="bg-light text-black"
                 style={{ textAlign: "center" }}
             >
-                <Card.Header> id: {id}</Card.Header>
+                <Card.Header> id: {post.id}</Card.Header>
                 {updateActive === true ? (
                     <Form.Control
                         as="textarea"
                         aria-label="With textarea"
-                        value={title}
+                        value={post.title}
                         onChange={onChangeTitle}
                     />
                 ) : (
-                    <Card.Title>{title}</Card.Title>
+                    <Card.Title>{post.title}</Card.Title>
                 )}
                 {updateActive === true ? (
                     <Form.Control
                         as="textarea"
                         aria-label="With textarea"
-                        value={content}
+                        value={post.content}
                         onChange={onChangeContent}
                     />
                 ) : (
-                    <Card.Text>{content}</Card.Text>
+                    <Card.Text>{post.content}</Card.Text>
                 )}
 
                 {updateActive === true ? (
                     <Form.Control
                         as="textarea"
                         aria-label="With textarea"
-                        value={author}
+                        value={post.author}
                         onChange={onChangeAuthor}
                     />
                 ) : (
                     <Card.Footer className="text-muted">
-                        user : {author}
+                        user : {post.author}
                     </Card.Footer>
                 )}
 
-                <Button variant="danger" onClick={() => onDelete(id)}>
+                <Button variant="danger" onClick={() => onDelete(post.id)}>
                     삭제
                 </Button>
                 <Button variant="warning" onClick={() => updateToggle()}>
