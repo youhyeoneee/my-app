@@ -8,7 +8,6 @@ import InputGroup from "react-bootstrap/InputGroup";
 
 export default function Board() {
     const [inputs, setInputs] = useState({
-        id: "",
         author: "",
         title: "",
         content: "",
@@ -61,10 +60,9 @@ export default function Board() {
         fetch(`${url}`, {
             method: "POST",
             body: JSON.stringify({
-                id: nextId,
-                userId: inputs.userId,
+                author: inputs.author,
                 title: inputs.title,
-                body: inputs.body,
+                content: inputs.content,
             }),
             headers: headers,
         })
@@ -143,7 +141,7 @@ export default function Board() {
                                     console.log(inputs);
                                     setInputs({
                                         ...inputs,
-                                        userId: e.target.value,
+                                        author: e.target.value,
                                     });
                                 }}
                             />
@@ -175,7 +173,7 @@ export default function Board() {
                                     console.log(inputs);
                                     setInputs({
                                         ...inputs,
-                                        body: e.target.value,
+                                        content: e.target.value,
                                     });
                                 }}
                             />
