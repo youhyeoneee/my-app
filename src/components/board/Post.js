@@ -5,15 +5,15 @@ import Form from "react-bootstrap/Form";
 
 export default function Post({ postItem, onDelete, onUpdate }) {
     const [post, setPost] = useState({});
-    const { id, userId, title, body } = post;
+    const { id, author, title, content } = post;
     const [updateActive, setUpdateActive] = useState(false);
 
     useEffect(() => {
         setPost({
-            id: postItem.id,
-            userId: postItem.userId,
+            id: postItem._id,
+            author: postItem.author,
             title: postItem.title,
-            body: postItem.body,
+            content: postItem.content,
         });
     }, []);
 
@@ -30,7 +30,7 @@ export default function Post({ postItem, onDelete, onUpdate }) {
     const onChange = (e) => {
         setPost({
             ...post,
-            body: e.target.value,
+            content: e.target.value,
         });
     };
 
@@ -47,15 +47,15 @@ export default function Post({ postItem, onDelete, onUpdate }) {
                     <Form.Control
                         as="textarea"
                         aria-label="With textarea"
-                        value={body}
+                        value={content}
                         onChange={onChange}
                     />
                 ) : (
-                    <Card.Text>{body}</Card.Text>
+                    <Card.Text>{content}</Card.Text>
                 )}
 
                 <Card.Footer className="text-muted">
-                    user : {userId}
+                    user : {author}
                 </Card.Footer>
                 <Button variant="danger" onClick={() => onDelete(id)}>
                     삭제

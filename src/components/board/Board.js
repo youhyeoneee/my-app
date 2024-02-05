@@ -8,18 +8,17 @@ import InputGroup from "react-bootstrap/InputGroup";
 
 export default function Board() {
     const [inputs, setInputs] = useState({
-        userId: "",
+        id: "",
+        author: "",
         title: "",
-        body: "",
+        content: "",
     });
-
-    const { userId, title, body } = inputs;
 
     const nextId = useRef(101);
 
     const [posts, setPosts] = useState([]);
     const [writeActive, setWriteActive] = useState(false);
-    const url = "https://jsonplaceholder.typicode.com/posts";
+    const url = "/board";
     const headers = {
         "Content-type": "application/json; charset=UTF-8",
     };
