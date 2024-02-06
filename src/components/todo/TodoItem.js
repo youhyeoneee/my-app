@@ -5,32 +5,39 @@ import Form from "react-bootstrap/Form";
 
 export default function TodoItem({ todoItem, onDelete, onUpdate }) {
     const [todo, setTodo] = useState({});
-    const { id, content, color } = todoItem;
 
     useEffect(() => {
         setTodo(todoItem);
     }, []);
+
+    useEffect(() => {
+        setTodo({
+            id: todoItem._id,
+            content: todoItem.author,
+            color: todoItem.color,
+        });
+    }, [todoItem]);
 
     const onChange = (e) => {
         setTodo({
             ...todo,
             content: e.target.value,
         });
-        onUpdate(id, e.target.value);
+        onUpdate(todoItem._id, e.target.value);
     };
 
     return (
         <div class="todoItemContainer">
             <InputGroup className="mb-3">
                 <Form.Control
-                    value={content}
+                    value={todoItem.content}
                     onChange={onChange}
-                    style={{ backgroundColor: color }}
+                    style={{ backgroundColor: todoItem.color }}
                 ></Form.Control>
                 <Button
                     variant="danger"
                     id="button-addon2"
-                    onClick={() => onDelete(id)}
+                    onClick={() => onDelete(todoItem._id)}
                 >
                     삭제
                 </Button>

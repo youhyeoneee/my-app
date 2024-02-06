@@ -75,10 +75,10 @@ export default function TodoList() {
     };
 
     const deleteTodo = useCallback((id) => {
-        setTodoList((prev) => {
-            return prev.filter((todo) => {
-                return todo.id !== id;
-            });
+        fetch(`${url}/${id}`, {
+            method: "DELETE",
+        }).then(() => {
+            getTodoList();
         });
     });
 
