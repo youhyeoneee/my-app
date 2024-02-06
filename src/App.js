@@ -11,12 +11,10 @@ function App() {
     const [visible, setVisible] = useState(false);
 
     return (
-        // <div className="App">
-        //     <TodoList />
-        // </div>
         <Routes>
-            <Route exact path="/" Component={Board} />
-            <Route path="/:id" Component={PostDetail} />
+            <Route exact path="/board" Component={Board} />
+            <Route path="/board/:id" Component={PostDetail} />
+            <Route path="/todo" Component={TodoList} />
         </Routes>
     );
 }

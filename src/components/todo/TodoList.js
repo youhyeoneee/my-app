@@ -6,6 +6,11 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 export default function TodoList() {
+    const url = "/todo";
+    const headers = {
+        "Content-type": "application/json; charset=UTF-8",
+    };
+
     const [inputs, setInputs] = useState({
         text: "",
         color: "",
@@ -30,6 +35,20 @@ export default function TodoList() {
             text: e.target.value,
         });
     };
+
+    // 조회
+    const getTodoList = () => {
+        fetch(url)
+            .then((response) => response.json())
+            .then((json) => {
+                setTodoList(json); // 글 목록 저장
+                console.log(json);
+            });
+    };
+
+    useEffect(() => {
+        getTodoList();
+    }, []);
 
     const addTodo = useCallback(() => {
         const newTodo = {
