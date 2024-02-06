@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 
 export default function TodoItem({ todoItem, onDelete, onUpdate }) {
     const [todo, setTodo] = useState({});
-    const { id, text, color } = todoItem;
+    const { id, content, color } = todoItem;
 
     useEffect(() => {
         setTodo(todoItem);
@@ -14,7 +14,7 @@ export default function TodoItem({ todoItem, onDelete, onUpdate }) {
     const onChange = (e) => {
         setTodo({
             ...todo,
-            text: e.target.value,
+            content: e.target.value,
         });
         onUpdate(id, e.target.value);
     };
@@ -23,7 +23,7 @@ export default function TodoItem({ todoItem, onDelete, onUpdate }) {
         <div class="todoItemContainer">
             <InputGroup className="mb-3">
                 <Form.Control
-                    value={text}
+                    value={content}
                     onChange={onChange}
                     style={{ backgroundColor: color }}
                 ></Form.Control>

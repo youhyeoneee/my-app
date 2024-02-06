@@ -12,11 +12,11 @@ export default function TodoList() {
     };
 
     const [inputs, setInputs] = useState({
-        text: "",
+        content: "",
         color: "",
     });
 
-    const { text, color } = inputs;
+    const { content, color } = inputs;
 
     const [colorList, setColorList] = useState([
         "white",
@@ -32,7 +32,7 @@ export default function TodoList() {
     const onChange = (e) => {
         setInputs({
             ...inputs,
-            text: e.target.value,
+            content: e.target.value,
         });
     };
 
@@ -50,23 +50,25 @@ export default function TodoList() {
         getTodoList();
     }, []);
 
-    const addTodo = useCallback(() => {
-        const newTodo = {
-            ...inputs,
-            id: nextId.current,
-        };
-
-        console.log(`추가 : ${inputs}`);
-        console.log(todoList);
-
-        setTodoList((prev) => prev.concat(newTodo));
-        focusInput(); // 입력란으로 초점
-        setInputs({
-            text: "",
-            color: "",
-        });
-        nextId.current += 1;
-    });
+    // 추가
+    const addTodo = () => {
+        console.log("작성 : ", JSON.stringify(inputs));
+        fetch(`${url}`, {
+            method: "POST",
+            body: JSON.stringify({
+                content: inputs.content,
+                color: inputs.color,
+            }),
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((json) => console.log(json))
+            .then(() => {
+                getTodoList();
+                focusInput();
+                setInputs({ content: "", color: "" });
+            });
+    };
 
     const focusInput = () => {
         inputRef.current.focus();
@@ -84,7 +86,7 @@ export default function TodoList() {
         console.log(`${id} 수정`);
         setTodoList((prev) => {
             prev.map((todo) =>
-                todo.id === id ? { ...todo, text: newValue } : todo
+                todo.id === id ? { ...todo, content: newValue } : todo
             );
         });
         console.log(todoList);
@@ -109,7 +111,7 @@ export default function TodoList() {
                         style={{ backgroundColor: color }}
                         type="text"
                         placeholder="입력"
-                        value={text}
+                        value={content}
                         onChange={onChange}
                     />
                     <Button
