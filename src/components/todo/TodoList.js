@@ -83,12 +83,20 @@ export default function TodoList() {
     });
 
     const updateTodo = useCallback((id, newValue) => {
+        fetch(`${url}/${id}`, {
+            method: "PUT",
+            body: JSON.stringify({
+                content: newValue,
+            }),
+            headers: headers,
+        })
+            .then((response) => response.json())
+            .then((json) => console.log(json))
+            .then(() => {
+                getTodoList();
+            });
+
         console.log(`${id} 수정`);
-        setTodoList((prev) => {
-            prev.map((todo) =>
-                todo.id === id ? { ...todo, content: newValue } : todo
-            );
-        });
         console.log(todoList);
     });
 

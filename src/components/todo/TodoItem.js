@@ -16,6 +16,8 @@ export default function TodoItem({ todoItem, onDelete, onUpdate }) {
             content: todoItem.author,
             color: todoItem.color,
         });
+
+        console.log(todo.id);
     }, [todoItem]);
 
     const onChange = (e) => {
@@ -23,7 +25,7 @@ export default function TodoItem({ todoItem, onDelete, onUpdate }) {
             ...todo,
             content: e.target.value,
         });
-        onUpdate(todoItem._id, e.target.value);
+        onUpdate(todo.id, e.target.value);
     };
 
     return (
