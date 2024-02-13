@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useState, useRef } from "react";
 import Post from "./Post";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import { Button } from "react-bootstrap";
+import Button from "@mui/material/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
-export default function Board() {
+export default function Board({ user, logOut }) {
     const [inputs, setInputs] = useState({
         author: "",
         title: "",
@@ -22,7 +22,9 @@ export default function Board() {
 
     const getBoardLists = () => {
         fetch(url)
-            .then((response) => response.json())
+            .then((response) => {
+                response.json();
+            })
             .then((json) => {
                 setPosts(json); // 글 목록 저장
             });
@@ -97,6 +99,18 @@ export default function Board() {
 
     return (
         <div style={{ padding: "20px" }}>
+            {user ? (
+                <div>
+                    {user.nickname}
+                    <Button variant="contained" onClick={logOut}>
+                        로그아웃
+                    </Button>
+                </div>
+            ) : (
+                <Button variant="contained" href="/login">
+                    로그인
+                </Button>
+            )}
             <h1 style={{ textAlign: "center", padding: "20px" }}>Boards</h1>
             <div
                 style={{
@@ -107,6 +121,7 @@ export default function Board() {
                 }}
             >
                 <Button
+                    variant="contained"
                     style={{
                         paddingRight: "10px",
                     }}
